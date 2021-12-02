@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          BlocBuilder<CalculadoraBloc, String>(
+          BlocBuilder<CalculadoraBloc, List>(
             builder: (context, state) {
               return Column(
                 children: [
@@ -22,17 +22,18 @@ class HomePage extends StatelessWidget {
                     alignment: Alignment.centerRight,
                     padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
                     child: Text(
-                      state,
+                      state[0],
                       style: TextStyle(
                         fontSize: 38,
                       ),
                     ),
                   ),
+                  Divider(),
                   Container(
                     alignment: Alignment.centerRight,
                     padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
                     child: Text(
-                      "0",
+                      state[1],
                       style: TextStyle(
                         fontSize: 48,
                       ),
@@ -42,7 +43,8 @@ class HomePage extends StatelessWidget {
               );
             },
           ),
-          const Expanded(child: Divider()),
+          Expanded(child: Spacer()),
+         
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

@@ -5,17 +5,20 @@ import 'package:math_expressions/math_expressions.dart';
 part 'calculadora_event.dart';
 part 'calculadora_state.dart';
 
-class CalculadoraBloc extends Bloc<CalculadoraEvent, String> {
+class CalculadoraBloc extends Bloc<CalculadoraEvent, List<String>> {
   String equation = "0";
   String expression = "";
   String result = "0";
-  CalculadoraBloc() : super("0") {
+  late List<String> list;
+
+  CalculadoraBloc() : super(["0", "0"]) {
     on<CalculadoraNumberEvent>(_receivedNumber);
     on<CalculadoraResetEvent>(_receivedReset);
     on<CalculadoraDeleteEvent>(_receivedDelete);
     on<CalculadoraOperatorEvent>(_receivedOperator);
     on<CalculadoraResultEvent>(_receivedResult);
   }
+
   _receivedResult(CalculadoraResultEvent event, Emitter emit) {
     expression = equation;
     expression = equation.replaceAll("X", "*");
@@ -25,22 +28,26 @@ class CalculadoraBloc extends Bloc<CalculadoraEvent, String> {
       Expression exp = parser.parse(expression);
       ContextModel contextModel = ContextModel();
       result = "${exp.evaluate(EvaluationType.REAL, contextModel)}";
-      equation = result;
-      emit(result);
+      //equation = result;
+      list = [equation, result];
+      emit(list);
     } catch (e) {
       result = "Erro";
-      emit(result);
+      list = [equation, result];
+      emit(list);
     }
   }
 
   _receivedReset(CalculadoraResetEvent event, Emitter emit) {
     equation = "0";
-    emit(equation);
+    list = [equation, result];
+    emit(list);
   }
 
   _receivedDelete(CalculadoraDeleteEvent event, Emitter emit) {
     equation = equation.substring(0, equation.length - 1);
-    emit(equation);
+    list = [equation, result];
+    emit(list);
   }
 
   _receivedOperator(CalculadoraOperatorEvent event, Emitter emit) {
@@ -49,20 +56,24 @@ class CalculadoraBloc extends Bloc<CalculadoraEvent, String> {
         equation == "0" && event.operator == "-" ||
         equation == "0" && event.operator == "÷") {
       equation = "0";
-      emit("Digite um número");
+      list = ["Digite um número", result];
+      emit(list);
     } else {
       equation = equation + event.operator;
-      emit(equation);
+      list = [equation, result];
+      emit(list);
     }
   }
 
   _receivedNumber(CalculadoraNumberEvent event, Emitter emit) {
     if (equation == "0") {
       equation = event.number;
-      emit(equation);
+      list = [equation, result];
+      emit(list);
     } else {
       equation = equation + event.number;
-      emit(equation);
+      list = [equation, result];
+      emit(list);
     }
   }
 }
