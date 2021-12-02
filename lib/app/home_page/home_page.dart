@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
               );
             },
           ),
-          Expanded(child: Spacer()),
+          Expanded(child: SizedBox()),
          
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

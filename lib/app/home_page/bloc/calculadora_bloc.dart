@@ -1,9 +1,7 @@
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:math_expressions/math_expressions.dart';
 
 part 'calculadora_event.dart';
-part 'calculadora_state.dart';
 
 class CalculadoraBloc extends Bloc<CalculadoraEvent, List<String>> {
   String equation = "0";
@@ -40,14 +38,22 @@ class CalculadoraBloc extends Bloc<CalculadoraEvent, List<String>> {
 
   _receivedReset(CalculadoraResetEvent event, Emitter emit) {
     equation = "0";
+    result = "0";
     list = [equation, result];
     emit(list);
   }
 
   _receivedDelete(CalculadoraDeleteEvent event, Emitter emit) {
-    equation = equation.substring(0, equation.length - 1);
-    list = [equation, result];
-    emit(list);
+    if (equation == "") {
+      print("foi");
+      equation = "0";
+      list = [equation, result];
+      emit(list);
+    } else {
+      equation = equation.substring(0, equation.length - 1);
+      list = [equation, result];
+      emit(list);
+    }
   }
 
   _receivedOperator(CalculadoraOperatorEvent event, Emitter emit) {
