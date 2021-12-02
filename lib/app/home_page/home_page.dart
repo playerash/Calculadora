@@ -1,5 +1,7 @@
+import 'package:calculadora/app/home_page/bloc/calculadora_bloc.dart';
 import 'package:calculadora/app/home_page/components/calculator_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -12,25 +14,33 @@ class HomePage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Container(
-            alignment: Alignment.centerRight,
-            padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
-            child: Text(
-              "0",
-              style: TextStyle(
-                fontSize: 38,
-              ),
-            ),
-          ),
-          Container(
-            alignment: Alignment.centerRight,
-            padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
-            child: Text(
-              "0",
-              style: TextStyle(
-                fontSize: 48,
-              ),
-            ),
+          BlocBuilder<CalculadoraBloc, String>(
+            builder: (context, state) {
+              return Column(
+                children: [
+                  Container(
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+                    child: Text(
+                      state,
+                      style: TextStyle(
+                        fontSize: 38,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    alignment: Alignment.centerRight,
+                    padding: const EdgeInsets.fromLTRB(10, 30, 10, 0),
+                    child: Text(
+                      "0",
+                      style: TextStyle(
+                        fontSize: 48,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
           ),
           const Expanded(child: Divider()),
           Row(
@@ -46,12 +56,12 @@ class HomePage extends StatelessWidget {
                         buttonHeight: 1,
                         buttonColor: Colors.redAccent,
                       ),
-                       CalculatorButton(
+                      CalculatorButton(
                         buttonText: "⌫",
                         buttonHeight: 1,
                         buttonColor: Colors.blue,
                       ),
-                       CalculatorButton(
+                      CalculatorButton(
                         buttonText: "÷",
                         buttonHeight: 1,
                         buttonColor: Colors.redAccent,
@@ -63,12 +73,12 @@ class HomePage extends StatelessWidget {
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
                       ),
-                       CalculatorButton(
+                      CalculatorButton(
                         buttonText: "8",
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
                       ),
-                       CalculatorButton(
+                      CalculatorButton(
                         buttonText: "9",
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
@@ -80,12 +90,12 @@ class HomePage extends StatelessWidget {
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
                       ),
-                       CalculatorButton(
+                      CalculatorButton(
                         buttonText: "5",
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
                       ),
-                       CalculatorButton(
+                      CalculatorButton(
                         buttonText: "6",
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
@@ -97,12 +107,12 @@ class HomePage extends StatelessWidget {
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
                       ),
-                       CalculatorButton(
+                      CalculatorButton(
                         buttonText: "2",
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
                       ),
-                       CalculatorButton(
+                      CalculatorButton(
                         buttonText: "3",
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
@@ -114,12 +124,12 @@ class HomePage extends StatelessWidget {
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
                       ),
-                       CalculatorButton(
+                      CalculatorButton(
                         buttonText: "0",
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
                       ),
-                       CalculatorButton(
+                      CalculatorButton(
                         buttonText: "00",
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
@@ -134,29 +144,32 @@ class HomePage extends StatelessWidget {
                   children: const [
                     TableRow(children: [
                       CalculatorButton(
-                        buttonText: "x",
+                        buttonText: "X",
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
-                      ),]),
-                      TableRow(children: [
+                      ),
+                    ]),
+                    TableRow(children: [
                       CalculatorButton(
                         buttonText: "-",
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
-                      ),]),
-                      TableRow(children: [
+                      ),
+                    ]),
+                    TableRow(children: [
                       CalculatorButton(
                         buttonText: "+",
                         buttonHeight: 1,
                         buttonColor: Colors.grey,
-                      ),]),
-                      TableRow(children: [
+                      ),
+                    ]),
+                    TableRow(children: [
                       CalculatorButton(
                         buttonText: "=",
                         buttonHeight: 2,
                         buttonColor: Colors.grey,
-                      ),]),
-                       
+                      ),
+                    ]),
                   ],
                 ),
               )
